@@ -36,6 +36,26 @@ def plot_value_array(i, predictions_array, true_label):
   thisplot[predicted_label].set_color('red')
   thisplot[true_label].set_color('blue')
 
+def displayCertainCategories(desired_label, true_label):
+  plotNumber = 1
+  amount = 0
+  for i in range(len(train_labels)): # Loop through whole array
+    # print(train_labels[i])
+    if (train_labels[i] == int(desired_label)):
+      # breakpoint()
+      plt.subplot(5,5,plotNumber)
+      plt.xticks([])
+      plt.yticks([])
+      plt.grid(False)
+      plt.imshow(train_images[i], cmap=plt.cm.binary)
+      plt.xlabel(class_names[train_labels[i]])
+      plt.ylabel(i, labelpad = 0.5,loc = 'top', rotation = 'horizontal')
+      plotNumber = plotNumber+1
+      amount = amount+1
+    if (amount >= 25):
+      break
+  plt.show()
+
 # Importing the fashion data
 fashion_mnist = tf.keras.datasets.fashion_mnist
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
@@ -55,65 +75,79 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
-# Showing first 25 images from training set
-# plt.figure(figsize=(10,10))
-# for i in range(25):
-#     plt.subplot(5,5,i+1)
-#     plt.xticks([])
-#     plt.yticks([])
-#     plt.grid(False)
-#     plt.imshow(train_images[i], cmap=plt.cm.binary)
-#     plt.xlabel(class_names[train_labels[i]])
-# plt.show()
+startIndex = False
+certainCategories = True
+
+if (startIndex):
+  print()
+  start = input("What index do you want to start from?: ") # Prompting user to insert start value
+  plt.figure(figsize=(10,10))
+  plotNumber = 1
+  for i in range(int(start), int(start)+25):
+    plt.subplot(5, 5, plotNumber)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(train_images[i], cmap=plt.cm.binary)
+    plt.xlabel(class_names[train_labels[i]])
+    plt.ylabel(i, labelpad = 0.5, loc = 'top', rotation = 'horizontal')
+    plotNumber = plotNumber+1
+  plt.show()
+
+if (certainCategories):
+  print()
+  category = input("What is the index of the category you want to display?: ")
+  # print(category)
+  displayCertainCategories(category, test_labels)
+
 
 # Building layers
-model = tf.keras.Sequential([
-    tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(10)
-])
+# model = tf.keras.Sequential([
+#     tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
+#     tf.keras.layers.Dense(128, activation='relu'),
+#     tf.keras.layers.Dense(10)
+# ])
 
 # Compiling the model
-model.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
+# model.compile(optimizer='adam',
+#               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+#               metrics=['accuracy'])
 
 # Training and feeding the model
-model.fit(train_images, train_labels, epochs=10)
+# model.fit(train_images, train_labels, epochs=10)
 
 #Evaluating accuracy
-test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
-print('\nTest accuracy:', test_acc)
+# test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+# print('\nTest accuracy:', test_acc)
 
-# Making predictions
-probability_model = tf.keras.Sequential([model, 
-                                         tf.keras.layers.Softmax()])
-predictions = probability_model.predict(test_images)
-print(predictions[0])
-print("Prediction: ")
-print(np.argmax(predictions[0]))
-print("Real: ")
-print(test_labels[0])
+# # Making predictions
+# probability_model = tf.keras.Sequential([model, 
+#                                          tf.keras.layers.Softmax()])
+# predictions = probability_model.predict(test_images)
+# print(predictions[0])
+# print("Prediction: ")
+# print(np.argmax(predictions[0]))
+# print("Real: ")
+# print(test_labels[0])
 
 # Plot the first X test images, their predicted labels, and the true labels.
 # Color correct predictions in blue and incorrect predictions in red.
-print()
-start = input("What index do you want to start from?: ") # Prompting user to insert start value
 
 # print(int(start))
 
-num_rows = 5
-num_cols = 5
-num_images = num_rows*num_cols
-plt.figure(figsize=(2*2*num_cols, 2*num_rows))
-plotNumber = 0
-for i in range(int(start), int(start)+num_images):
-  plt.subplot(num_rows, 2*num_cols, 2*plotNumber+1) # Rows, cols, # of plot
-  plot_image(i, predictions[i], test_labels, test_images)
-  plt.subplot(num_rows, 2*num_cols, 2*plotNumber+2)
-  plot_value_array(i, predictions[i], test_labels)
-  plotNumber = plotNumber+1
-plt.tight_layout()
-plt.show()
+# num_rows = 5
+# num_cols = 5
+# num_images = num_rows*num_cols
+# plt.figure(figsize=(2*2*num_cols, 2*num_rows))
+# plotNumber = 0
+# for i in range(int(start), int(start)+num_images):
+#   plt.subplot(num_rows, 2*num_cols, 2*plotNumber+1) # Rows, cols, # of plot
+#   plot_image(i, predictions[i], test_labels, test_images)
+#   plt.subplot(num_rows, 2*num_cols, 2*plotNumber+2)
+#   plot_value_array(i, predictions[i], test_labels)
+#   plotNumber = plotNumber+1
+# plt.tight_layout()
+# plt.show()
 
+print()
 print("All done!")
