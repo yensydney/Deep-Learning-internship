@@ -1,3 +1,5 @@
+import sys
+
 # TensorFlow and tf.keras
 import tensorflow as tf
 
@@ -36,13 +38,16 @@ def plot_value_array(i, predictions_array, true_label):
   thisplot[predicted_label].set_color('red')
   thisplot[true_label].set_color('blue')
 
-def displayCertainCategories(desired_label, true_label):
+def displayCertainCategories(desired_label, startValue, true_label):
+  # breakpoint()
   plotNumber = 1
   amount = 0
-  for i in range(len(train_labels)): # Loop through whole array
+  fig, ax = plt.subplots(2, 2, figsize=(15,8.5))
+  if desired_label == 'all':
+    # breakpoint()
+    for i in range(int(startValue), len(train_labels)): # Loop through whole array
     # print(train_labels[i])
-    if (train_labels[i] == int(desired_label)):
-      # breakpoint()
+    # breakpoint()
       plt.subplot(5,5,plotNumber)
       plt.xticks([])
       plt.yticks([])
@@ -52,8 +57,24 @@ def displayCertainCategories(desired_label, true_label):
       plt.ylabel(i, labelpad = 0.5,loc = 'top', rotation = 'horizontal')
       plotNumber = plotNumber+1
       amount = amount+1
-    if (amount >= 25):
-      break
+      if (amount >= 25):
+        break
+  else:
+    for i in range(int(startValue), len(train_labels)): # Loop through whole array
+      # print(train_labels[i])
+      if (train_labels[i] == int(desired_label)): # Condition 
+        # breakpoint()
+        plt.subplot(5,5,plotNumber)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(train_images[i], cmap=plt.cm.binary)
+        plt.xlabel(class_names[train_labels[i]])
+        plt.ylabel(i, labelpad = 0.5,loc = 'top', rotation = 'horizontal')
+        plotNumber = plotNumber+1
+        amount = amount+1
+      if (amount >= 25):
+        break
   plt.show()
 
 # Importing the fashion data
@@ -75,30 +96,35 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
-startIndex = False
-certainCategories = True
+# plt.figure(figsize=(10,10))
+# plotNumber = 1
+# for i in range(int(start), int(start)+25):
+#   plt.subplot(5, 5, plotNumber)
+#   plt.xticks([])
+#   plt.yticks([])
+#   plt.grid(False)
+#   plt.imshow(train_images[i], cmap=plt.cm.binary)
+#   plt.xlabel(class_names[train_labels[i]])
+#   plt.ylabel(i, labelpad = 0.5, loc = 'top', rotation = 'horizontal')
+#   plotNumber = plotNumber+1
+# plt.show()
 
-if (startIndex):
-  print()
-  start = input("What index do you want to start from?: ") # Prompting user to insert start value
-  plt.figure(figsize=(10,10))
-  plotNumber = 1
-  for i in range(int(start), int(start)+25):
-    plt.subplot(5, 5, plotNumber)
-    plt.xticks([])
-    plt.yticks([])
-    plt.grid(False)
-    plt.imshow(train_images[i], cmap=plt.cm.binary)
-    plt.xlabel(class_names[train_labels[i]])
-    plt.ylabel(i, labelpad = 0.5, loc = 'top', rotation = 'horizontal')
-    plotNumber = plotNumber+1
-  plt.show()
-
-if (certainCategories):
-  print()
-  category = input("What is the index of the category you want to display?: ")
-  # print(category)
-  displayCertainCategories(category, test_labels)
+print()
+start = input("What index do you want to start from?: ") # Prompting user to insert start value
+print()
+category = input("What is the name of the category you want to display?: ")
+isFound = False
+for i in range(len(class_names)):
+  if class_names[i] == category:
+    category = i
+    isFound = True
+if isFound == False and category != 'all':
+  print("Not an available category.")
+  sys.exit()
+# print(category)
+    
+# print(category)
+displayCertainCategories(category, start, test_labels)
 
 
 # Building layers
