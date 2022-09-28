@@ -109,42 +109,52 @@ test_images = test_images / 255.0
 #   plotNumber = plotNumber+1
 # plt.show()
 
-print()
-start = input("What index do you want to start from?: ") # Prompting user to insert start value
-print()
-category = input("What is the name of the category you want to display?: ")
-isFound = False
-for i in range(len(class_names)):
-  if class_names[i] == category:
-    category = i
-    isFound = True
-if isFound == False and category != 'all':
-  print("Not an available category.")
-  sys.exit()
-# print(category)
-    
-# print(category)
-displayCertainCategories(category, start, test_labels)
+# Index and category filter
+# print()
+# start = input("What index do you want to start from?: ") # Prompting user to insert start value
+# print()
+# category = input("What is the name of the category you want to display?: ")
+# isFound = False
+# for i in range(len(class_names)):
+#   if class_names[i] == category:
+#     category = i
+#     isFound = True
+# if isFound == False and category != 'all':
+#   print("Not an available category.")
+#   sys.exit()
+# # print(category)
+# displayCertainCategories(category, start, test_labels)
 
 
 # Building layers
-# model = tf.keras.Sequential([
-#     tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
-#     tf.keras.layers.Dense(128, activation='relu'),
-#     tf.keras.layers.Dense(10)
-# ])
+model = tf.keras.Sequential([
+    tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10)
+])
 
 # Compiling the model
-# model.compile(optimizer='adam',
-#               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-#               metrics=['accuracy'])
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+
+train_images_50k = train_images[0:40000]
+train_labels_50k = train_labels[0:40000]
+# for i in reversed(range(50000, 60000)):
+#   print(i)
+#   train_images_50k = np.delete(train_images_50k, i, axis=0)
+# train_images_50k = np.delete(np.delete(train_images, , axis=0),)
+print(train_images.shape)
+print(len(train_images_50k))
+# print(len(train_images))
+# sys.exit()
 
 # Training and feeding the model
-# model.fit(train_images, train_labels, epochs=10)
+model.fit(train_images_50k, train_labels_50k, epochs=10)
 
 #Evaluating accuracy
-# test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
-# print('\nTest accuracy:', test_acc)
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+print('\nTest accuracy:', test_acc)
 
 # # Making predictions
 # probability_model = tf.keras.Sequential([model, 
