@@ -138,8 +138,11 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-train_images_50k = train_images[0:40000]
-train_labels_50k = train_labels[0:40000]
+startIndex = input("Enter your start index: ")
+endIndex = input("Enter your end index: ")
+
+train_images_50k = train_images[int(startIndex):int(endIndex)]
+train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 # for i in reversed(range(50000, 60000)):
 #   print(i)
 #   train_images_50k = np.delete(train_images_50k, i, axis=0)
