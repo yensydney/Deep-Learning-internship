@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 fashion_mnist = tf.keras.datasets.fashion_mnist
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
+# Storing because it is not included in the dataset
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+
 def plot_image(i, predictions_array, true_label, img):
   true_label, img = true_label[i], img[i]
   plt.grid(False)
@@ -80,23 +84,36 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 
 # def sortArray(desired_label, )
 
-# Creating shoes arary
+# Creating shoes list
 shoesList = [] # This is a list
 shoesLabelList = []
 for i in range(len(train_images)):
   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
     shoesList.append(train_images[i])
     shoesLabelList.append(train_labels[i])
+# displayCertainCategories('all', 0, shoesList, shoesLabelList)
 
-# print(len(shoesList))
-# print(shoesLabelList)
+# Creating tops list
+topsList = []
+topsLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+    topsList.append(train_images[i])
+    topsLabelList.append(train_labels[i])
+# print(len(topsList))
+# displayCertainCategories('all', 0, topsList, topsLabelList)
+
+# Creating others list
+othersList = []
+othersLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+    othersList.append(train_images[i])
+    othersLabelList.append(train_labels[i])
+# print(len(othersList))
+# displayCertainCategories('all', 0, othersList, othersLabelList)
 
 # sys.exit()
-# topsArray =
-
-# Storing because it is not included in the dataset
-class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
 
 # Preprocessing
 # plt.figure()
