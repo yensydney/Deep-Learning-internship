@@ -7,6 +7,10 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Importing the fashion data
+fashion_mnist = tf.keras.datasets.fashion_mnist
+(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+
 def plot_image(i, predictions_array, true_label, img):
   true_label, img = true_label[i], img[i]
   plt.grid(False)
@@ -38,45 +42,57 @@ def plot_value_array(i, predictions_array, true_label):
   thisplot[predicted_label].set_color('red')
   thisplot[true_label].set_color('blue')
 
-def display(plotNumberArg, index):
+def display(plotNumberArg, index, listDisplay, labelListDisplay):
   plt.subplot(5,5,plotNumberArg)
   plt.xticks([])
   plt.yticks([])
   plt.grid(False)
-  plt.imshow(train_images[index], cmap=plt.cm.binary)
-  plt.xlabel(class_names[train_labels[index]])
+  plt.imshow(listDisplay[index], cmap=plt.cm.binary)
+  plt.xlabel(class_names[labelListDisplay[index]])
   plt.ylabel(index, labelpad = 0.5,loc = 'top', rotation = 'horizontal')
 
-def displayCertainCategories(desired_label, startValue, true_label):
+def displayCertainCategories(desired_label, startValue, myList, labelList):
   # breakpoint()
   plotNumber = 1
   amount = 0
   fig, ax = plt.subplots(2, 2, figsize=(15,8.5))
   if desired_label == 'all':
     # breakpoint()
-    for i in range(int(startValue), len(train_labels)): # Loop through whole array
+    for i in range(int(startValue), len(labelList)): # Loop through whole array
     # print(train_labels[i])
     # breakpoint()
-      display(plotNumber, i)
+      display(plotNumber, i, myList, labelList)
       plotNumber = plotNumber+1
       amount = amount+1
       if (amount >= 25):
         break
   else:
-    for i in range(int(startValue), len(train_labels)): # Loop through whole array
+    for i in range(int(startValue), len(labelList)): # Loop through whole array
       # print(train_labels[i])
-      if (train_labels[i] == int(desired_label)): # Condition 
+      if (labelList[i] == int(desired_label)): # Condition 
         # breakpoint()
-        display(plotNumber, i)
+        display(plotNumber, i, myList, labelList)
         plotNumber = plotNumber+1
         amount = amount+1
       if (amount >= 25):
         break
   plt.show()
 
-# Importing the fashion data
-fashion_mnist = tf.keras.datasets.fashion_mnist
-(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+# def sortArray(desired_label, )
+
+# Creating shoes arary
+shoesList = [] # This is a list
+shoesLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+    shoesList.append(train_images[i])
+    shoesLabelList.append(train_labels[i])
+
+# print(len(shoesList))
+# print(shoesLabelList)
+
+# sys.exit()
+# topsArray =
 
 # Storing because it is not included in the dataset
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
@@ -120,7 +136,7 @@ if isFound == False and category != 'all':
   print("Not an available category.")
   sys.exit()
 # print(category)
-displayCertainCategories(category, start, test_labels)
+displayCertainCategories(category, start, train_images, train_labels)
 
 
 # Building layers
