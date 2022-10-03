@@ -85,23 +85,23 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # def sortArray(desired_label, )
 
 # Creating shoes list
-# shoesList = [] # This is a list
-# shoesLabelList = []
-# for i in range(len(train_images)):
-#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-#     shoesList.append(train_images[i])
-#     shoesLabelList.append(train_labels[i])
-# # displayCertainCategories('all', 0, shoesList, shoesLabelList)
+shoesList = [] # This is a list
+shoesLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+    shoesList.append(train_images[i])
+    shoesLabelList.append(train_labels[i])
+# displayCertainCategories('all', 0, shoesList, shoesLabelList)
 
-# # Creating non-shoes list
-# nonShoesList = []
-# nonShoesLabelList = []
-# for i in range(len(train_images)):
-#   if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
-#     nonShoesList.append(train_images[i])
-#     nonShoesLabelList.append(train_labels[i])
-# print(len(nonShoesList))
-# displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
+# Creating non-shoes list
+nonShoesList = []
+nonShoesLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
+    nonShoesList.append(train_images[i])
+    nonShoesLabelList.append(train_labels[i])
+print(len(nonShoesList))
+displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
 
 # sys.exit()
 
