@@ -85,33 +85,23 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # def sortArray(desired_label, )
 
 # Creating shoes list
-shoesList = [] # This is a list
-shoesLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    shoesList.append(train_images[i])
-    shoesLabelList.append(train_labels[i])
-# displayCertainCategories('all', 0, shoesList, shoesLabelList)
+# shoesList = [] # This is a list
+# shoesLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+#     shoesList.append(train_images[i])
+#     shoesLabelList.append(train_labels[i])
+# # displayCertainCategories('all', 0, shoesList, shoesLabelList)
 
-# Creating tops list
-topsList = []
-topsLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
-    topsList.append(train_images[i])
-    topsLabelList.append(train_labels[i])
-# print(len(topsList))
-# displayCertainCategories('all', 0, topsList, topsLabelList)
-
-# Creating others list
-othersList = []
-othersLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
-    othersList.append(train_images[i])
-    othersLabelList.append(train_labels[i])
-# print(len(othersList))
-# displayCertainCategories('all', 0, othersList, othersLabelList)
+# # Creating non-shoes list
+# nonShoesList = []
+# nonShoesLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
+#     nonShoesList.append(train_images[i])
+#     nonShoesLabelList.append(train_labels[i])
+# print(len(nonShoesList))
+# displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
 
 # sys.exit()
 
@@ -139,55 +129,48 @@ test_images = test_images / 255.0
 #   plotNumber = plotNumber+1
 # plt.show()
 
-# Index and category filter
-print()
-start = input("What index do you want to start from?: ") # Prompting user to insert start value
-print()
-category = input("What is the name of the category you want to display?: ")
-isFound = False
-for i in range(len(class_names)):
-  if class_names[i] == category:
-    category = i
-    isFound = True
-if isFound == False and category != 'all':
-  print("Not an available category.")
-  sys.exit()
-# print(category)
-displayCertainCategories(category, start, train_images, train_labels)
+# # Index and category filter
+# print()
+# start = input("What index do you want to start from?: ") # Prompting user to insert start value
+# print()
+# category = input("What is the name of the category you want to display?: ")
+# isFound = False
+# for i in range(len(class_names)):
+#   if class_names[i] == category:
+#     category = i
+#     isFound = True
+# if isFound == False and category != 'all':
+#   print("Not an available category.")
+#   sys.exit()
+# # print(category)
+# displayCertainCategories(category, start, train_images, train_labels)
 
 
 # Building layers
-# model = tf.keras.Sequential([
-#     tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
-#     tf.keras.layers.Dense(128, activation='relu'),
-#     tf.keras.layers.Dense(10)
-# ])
+model = tf.keras.Sequential([
+    tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10)
+])
 
 # Compiling the model
-# model.compile(optimizer='adam',
-#               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-#               metrics=['accuracy'])
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
 
-# startIndex = input("Enter your start index: ")
+startIndex = input("Enter your start index: ")
 # endIndex = input("Enter your end index: ")
 
-# train_images_50k = train_images[int(startIndex):int(startIndex)+100]
-# train_labels_50k = train_labels[int(startIndex):int(startIndex)+100]
-# for i in reversed(range(50000, 60000)):
-#   print(i)
-#   train_images_50k = np.delete(train_images_50k, i, axis=0)
-# train_images_50k = np.delete(np.delete(train_images, , axis=0),)
-# print(train_images.shape)
-# print(len(train_images_50k))
-# print(len(train_images))
+train_images_50k = train_images[int(startIndex):int(startIndex)+10000]
+train_labels_50k = train_labels[int(startIndex):int(startIndex)+10000]
 # sys.exit()
 
 # Training and feeding the model
-# model.fit(test_images, test_labels, epochs=10)
+model.fit(train_images_50k, train_labels_50k, epochs=10)
 
 #Evaluating accuracy
-# test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
-# print('\nTest accuracy:', test_acc)
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+print('\nTest accuracy:', test_acc)
 
 # # Making predictions
 # probability_model = tf.keras.Sequential([model, 
