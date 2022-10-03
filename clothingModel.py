@@ -169,8 +169,9 @@ train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 model.fit(train_images_50k, train_labels_50k, epochs=10)
 
 #Evaluating accuracy
+print()
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
-print('\nTest accuracy:', test_acc)
+print('Test accuracy:', test_acc)
 
 # # Making predictions
 # probability_model = tf.keras.Sequential([model, 
