@@ -159,10 +159,10 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 startIndex = input("Enter your start index: ")
-# endIndex = input("Enter your end index: ")
+endIndex = input("Enter your end index: ")
 
-train_images_50k = train_images[int(startIndex):int(startIndex)+10000]
-train_labels_50k = train_labels[int(startIndex):int(startIndex)+10000]
+train_images_50k = train_images[int(startIndex):int(endIndex)]
+train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 # sys.exit()
 
 # Training and feeding the model
