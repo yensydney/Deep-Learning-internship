@@ -82,26 +82,28 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
         break
   plt.show()
 
-# def sortArray(desired_label, )
-
 # Creating shoes list
-# shoesList = [] # This is a list
-# shoesLabelList = []
-# for i in range(len(train_images)):
-#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-#     shoesList.append(train_images[i])
-#     shoesLabelList.append(train_labels[i])
-# # displayCertainCategories('all', 0, shoesList, shoesLabelList)
+shoesList = [] # This is a list
+shoesLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+    shoesList.append(train_images[i])
+    shoesLabelList.append(1)
+# displayCertainCategories('all', 0, shoesList, shoesLabelList)
+shoesArray = np.array(shoesList)
+shoesLabelArray = np.array(shoesLabelList)
 
-# # Creating non-shoes list
-# nonShoesList = []
-# nonShoesLabelList = []
-# for i in range(len(train_images)):
-#   if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
-#     nonShoesList.append(train_images[i])
-#     nonShoesLabelList.append(train_labels[i])
+# Creating non-shoes list
+nonShoesList = []
+nonShoesLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
+    nonShoesList.append(train_images[i])
+    nonShoesLabelList.append(0)
 # print(len(nonShoesList))
 # displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
+nonShoesArray = np.array(nonShoesList)
+nonShoesLabelArray = np.array(nonShoesLabelList)
 
 # Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes
 shoesNonShoesLabelList = []
@@ -177,11 +179,11 @@ model.compile(optimizer='adam',
 # sys.exit()
 
 # Training and feeding the model
-model.fit(train_images, shoesNonShoesLabelArray, epochs=10)
+model.fit(shoesArray, shoesLabelArray, epochs=10)
 
 #Evaluating accuracy
 print()
-test_loss, test_acc = model.evaluate(train_images,  shoesNonShoesLabelArray, verbose=2)
+test_loss, test_acc = model.evaluate(train_images, shoesNonShoesLabelArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 # # Making predictions
