@@ -179,7 +179,7 @@ model.compile(optimizer='adam',
 # sys.exit()
 
 # Training and feeding the model
-model.fit(shoesArray, shoesLabelArray, epochs=10)
+model.fit(nonShoesArray, nonShoesLabelArray, epochs=10)
 
 #Evaluating accuracy
 print()
