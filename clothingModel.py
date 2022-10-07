@@ -94,27 +94,63 @@ shoesArray = np.array(shoesList)
 shoesLabelArray = np.array(shoesLabelList)
 
 # Creating non-shoes list
-nonShoesList = []
-nonShoesLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
-    nonShoesList.append(train_images[i])
-    nonShoesLabelList.append(0)
-# print(len(nonShoesList))
-# displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
-nonShoesArray = np.array(nonShoesList)
-nonShoesLabelArray = np.array(nonShoesLabelList)
+# nonShoesList = []
+# nonShoesLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
+#     nonShoesList.append(train_images[i])
+#     nonShoesLabelList.append(0)
+# # print(len(nonShoesList))
+# # displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
+# nonShoesArray = np.array(nonShoesList)
+# nonShoesLabelArray = np.array(nonShoesLabelList)
 
-# Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes
-shoesNonShoesLabelList = []
+# # Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes
+# shoesNonShoesLabelList = []
+# for i in range(len(train_images)):
+#   # Shoes
+#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+#     shoesNonShoesLabelList.append(1)
+#   if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
+#     shoesNonShoesLabelList.append(0)
+# # print(len(shoesNonShoesLabelList))
+# shoesNonShoesLabelArray = np.array(shoesNonShoesLabelList)
+
+# Creating tops list
+topsList = []
+topsLabelList = []
 for i in range(len(train_images)):
-  # Shoes
+  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+    topsList.append(train_images[i])
+    topsLabelList.append(2)
+# print(len(topsList))
+# displayCertainCategories('all', 0, topsList, topsLabelList)
+topsArray = np.array(topsList)
+topsLabelArray = np.array(topsLabelList)
+
+# Creating others list
+othersList = []
+othersLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+    othersList.append(train_images[i])
+    othersLabelList.append(0)
+othersArray = np.array(othersList)
+othersLabelArray = np.array(othersLabelList)
+
+# Creating shoes, tops, and others list joined together
+shoesTopsOthersLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+    shoesTopsOthersLabelList.append(0)
   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    shoesNonShoesLabelList.append(1)
-  if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
-    shoesNonShoesLabelList.append(0)
-# print(len(shoesNonShoesLabelList))
-shoesNonShoesLabelArray = np.array(shoesNonShoesLabelList)
+    shoesTopsOthersLabelList.append(1)
+  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+    shoesTopsOthersLabelList.append(2)
+shoesTopsOthersLabelArray = np.array(shoesTopsOthersLabelList)
+
+# print(shoesTopsOthersLabelList)
+# print(len(shoesTopsOthersLabelArray))
 
 # sys.exit()
 
@@ -179,11 +215,11 @@ model.compile(optimizer='adam',
 # sys.exit()
 
 # Training and feeding the model
-model.fit(nonShoesArray, nonShoesLabelArray, epochs=10)
+model.fit(train_images, shoesTopsOthersLabelArray, epochs=10)
 
 #Evaluating accuracy
 print()
-test_loss, test_acc = model.evaluate(train_images, shoesNonShoesLabelArray, verbose=2)
+test_loss, test_acc = model.evaluate(train_images, shoesTopsOthersLabelArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 # # Making predictions
