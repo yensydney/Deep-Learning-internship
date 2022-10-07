@@ -14,6 +14,7 @@ fashion_mnist = tf.keras.datasets.fashion_mnist
 # Storing because it is not included in the dataset
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+shoesNonShoesClassNames = ['Non-shoe', 'Shoe']
 
 def plot_image(i, predictions_array, true_label, img):
   true_label, img = true_label[i], img[i]
@@ -29,10 +30,8 @@ def plot_image(i, predictions_array, true_label, img):
   else:
     color = 'red'
 
-  plt.xlabel("{} {:2.0f}% ({})".format(class_names[predicted_label],
-                                100*np.max(predictions_array),
-                                class_names[true_label]),
-                                color=color)
+  plt.xlabel("{} {:2.0f}% ({})".format(shoesNonShoesClassNames[predicted_label], 100*np.max(predictions_array), shoesNonShoesClassNames[true_label]), 
+    color=color)
 
 def plot_value_array(i, predictions_array, true_label):
   true_label = true_label[i]
@@ -85,13 +84,16 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # def sortArray(desired_label, )
 
 # Creating shoes list
-# shoesList = [] # This is a list
-# shoesLabelList = []
-# for i in range(len(train_images)):
-#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-#     shoesList.append(train_images[i])
-#     shoesLabelList.append(train_labels[i])
-# # displayCertainCategories('all', 0, shoesList, shoesLabelList)
+shoesList = [] # This is a list
+shoesLabelList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+    shoesList.append(train_images[i])
+    shoesLabelList.append(1)
+# displayCertainCategories('all', 0, shoesList, shoesLabelList)
+shoesArray = np.array(shoesList)
+shoesLabelArray = np.array(shoesLabelList)
+
 
 # # Creating non-shoes list
 # nonShoesList = []
@@ -104,15 +106,24 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # displayCertainCategories('all', 0, nonShoesList, nonShoesLabelList)
 
 # Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes
-shoesNonShoesLabelList = []
+trainingShoesNonShoesLabelList = []
 for i in range(len(train_images)):
   # Shoes
   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    shoesNonShoesLabelList.append(1)
+    trainingShoesNonShoesLabelList.append(1)
   if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6 or train_labels[i] == 8):
-    shoesNonShoesLabelList.append(0)
-# print(len(shoesNonShoesLabelList))
-shoesNonShoesLabelArray = np.array(shoesNonShoesLabelList)
+    trainingShoesNonShoesLabelList.append(0)
+# print(len(trainingShoesNonShoesLabelList))
+trainingShoesNonShoesLabelArray = np.array(trainingShoesNonShoesLabelList)
+
+testingShoesNonShoesLabelList = []
+for i in range(len(test_images)):
+  if (test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
+    testingShoesNonShoesLabelList.append(1)
+  if (test_labels[i] == 0 or test_labels[i] == 1 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 6 or test_labels[i] == 8):
+    testingShoesNonShoesLabelList.append(0)
+# print(len(testingShoesNonShoesLabelList))
+testingShoesNonShoesLabelArray = np.array(testingShoesNonShoesLabelList)
 
 # sys.exit()
 
@@ -177,17 +188,16 @@ model.compile(optimizer='adam',
 # sys.exit()
 
 # Training and feeding the model
-model.fit(train_images, shoesNonShoesLabelArray, epochs=10)
+model.fit(shoesArray, shoesLabelArray, epochs=10)
 
 #Evaluating accuracy
 print()
-test_loss, test_acc = model.evaluate(train_images,  shoesNonShoesLabelArray, verbose=2)
+test_loss, test_acc = model.evaluate(train_images,  trainingShoesNonShoesLabelArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 # # Making predictions
-# probability_model = tf.keras.Sequential([model, 
-#                                          tf.keras.layers.Softmax()])
-# predictions = probability_model.predict(test_images)
+probability_model = tf.keras.Sequential([model, tf.keras.layers.Softmax()])
+predictions = probability_model.predict(test_images)
 # print(predictions[0])
 # print("Prediction: ")
 # print(np.argmax(predictions[0]))
@@ -196,22 +206,17 @@ print('Test accuracy:', test_acc)
 
 # Plot the first X test images, their predicted labels, and the true labels.
 # Color correct predictions in blue and incorrect predictions in red.
-
-# print(int(start))
-
-# num_rows = 5
-# num_cols = 5
-# num_images = num_rows*num_cols
-# plt.figure(figsize=(2*2*num_cols, 2*num_rows))
-# plotNumber = 0
-# for i in range(int(start), int(start)+num_images):
-#   plt.subplot(num_rows, 2*num_cols, 2*plotNumber+1) # Rows, cols, # of plot
-#   plot_image(i, predictions[i], test_labels, test_images)
-#   plt.subplot(num_rows, 2*num_cols, 2*plotNumber+2)
-#   plot_value_array(i, predictions[i], test_labels)
-#   plotNumber = plotNumber+1
-# plt.tight_layout()
-# plt.show()
+num_rows = 15
+num_cols = 9
+num_images = num_rows*num_cols
+plt.figure(figsize=(2*2*num_cols, 2*num_rows))
+for i in range(num_images):
+  plt.subplot(num_rows, 2*num_cols, 2*i+1)
+  plot_image(i, predictions[i], testingShoesNonShoesLabelArray, test_images)
+  plt.subplot(num_rows, 2*num_cols, 2*i+2)
+  plot_value_array(i, predictions[i], testingShoesNonShoesLabelArray)
+plt.tight_layout()
+plt.show()
 
 print()
 print("All done!")
