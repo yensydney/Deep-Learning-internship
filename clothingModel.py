@@ -2,6 +2,7 @@ import sys
 
 # TensorFlow and tf.keras
 import tensorflow as tf
+from tensorflow import keras
 
 # Helper libraries
 import numpy as np
@@ -81,6 +82,7 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
       if (amount >= 25):
         break
   plt.show()
+  plt.savefig('test.png')
 
 # Creating shoes list
 shoesList = [] # This is a list
