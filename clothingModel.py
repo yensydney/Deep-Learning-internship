@@ -15,6 +15,7 @@ fashion_mnist = tf.keras.datasets.fashion_mnist
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
 shoesNonShoesClassNames = ['Non-shoe', 'Shoe']
+oneClassName = []
 
 def plot_image(i, predictions_array, true_label, img):
   true_label, img = true_label[i], img[i]
@@ -188,7 +189,8 @@ model.compile(optimizer='adam',
 # sys.exit()
 
 # Training and feeding the model
-model.fit(shoesArray, shoesLabelArray, epochs=10)
+desiredEpochs = input("How many epochs do you want?: ")
+model.fit(shoesArray, shoesLabelArray, epochs=int(desiredEpochs))
 
 #Evaluating accuracy
 print()
@@ -196,8 +198,8 @@ test_loss, test_acc = model.evaluate(train_images,  trainingShoesNonShoesLabelAr
 print('Test accuracy:', test_acc)
 
 # # Making predictions
-probability_model = tf.keras.Sequential([model, tf.keras.layers.Softmax()])
-predictions = probability_model.predict(test_images)
+# probability_model = tf.keras.Sequential([model, tf.keras.layers.Softmax()])
+# predictions = probability_model.predict(test_images)
 # print(predictions[0])
 # print("Prediction: ")
 # print(np.argmax(predictions[0]))
@@ -206,17 +208,17 @@ predictions = probability_model.predict(test_images)
 
 # Plot the first X test images, their predicted labels, and the true labels.
 # Color correct predictions in blue and incorrect predictions in red.
-num_rows = 15
-num_cols = 9
-num_images = num_rows*num_cols
-plt.figure(figsize=(2*2*num_cols, 2*num_rows))
-for i in range(num_images):
-  plt.subplot(num_rows, 2*num_cols, 2*i+1)
-  plot_image(i, predictions[i], testingShoesNonShoesLabelArray, test_images)
-  plt.subplot(num_rows, 2*num_cols, 2*i+2)
-  plot_value_array(i, predictions[i], testingShoesNonShoesLabelArray)
-plt.tight_layout()
-plt.show()
+# num_rows = 15
+# num_cols = 9
+# num_images = num_rows*num_cols
+# plt.figure(figsize=(2*2*num_cols, 2*num_rows))
+# for i in range(num_images):
+#   plt.subplot(num_rows, 2*num_cols, 2*i+1)
+#   plot_image(i, predictions[i], testingShoesNonShoesLabelArray, test_images)
+#   plt.subplot(num_rows, 2*num_cols, 2*i+2)
+#   plot_value_array(i, predictions[i], testingShoesNonShoesLabelArray)
+# plt.tight_layout()
+# plt.show()
 
 print()
 print("All done!")
