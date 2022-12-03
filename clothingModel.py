@@ -181,6 +181,9 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
+# Calling back the model to save
+# cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, save_weights_only=True, verbose=1)
+
 # startIndex = input("Enter your start index: ")
 # endIndex = input("Enter your end index: ")
 
@@ -190,11 +193,12 @@ model.compile(optimizer='adam',
 
 # Training and feeding the model
 desiredEpochs = input("How many epochs do you want?: ")
-model.fit(shoesArray, shoesLabelArray, epochs=int(desiredEpochs))
+# WITH CALLBACK
+model.fit(train_images, train_labels, epochs=int(desiredEpochs))
 
 #Evaluating accuracy
 print()
-test_loss, test_acc = model.evaluate(train_images,  trainingShoesNonShoesLabelArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
 print('Test accuracy:', test_acc)
 
 # # Making predictions
