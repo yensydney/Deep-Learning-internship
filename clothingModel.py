@@ -84,7 +84,7 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
   plt.show()
   plt.savefig('test.png')
 
-# Creating shoes list
+######################################################## Creating shoes list #######################################################
 shoesList = [] # This is a list
 shoesLabelList = []
 for i in range(len(train_images)):
@@ -95,7 +95,7 @@ for i in range(len(train_images)):
 shoesArray = np.array(shoesList)
 shoesLabelArray = np.array(shoesLabelList)
 
-# Creating non-shoes list
+######################################################## Creating non-shoes list #######################################################
 # nonShoesList = []
 # nonShoesLabelList = []
 # for i in range(len(train_images)):
@@ -107,7 +107,7 @@ shoesLabelArray = np.array(shoesLabelList)
 # nonShoesArray = np.array(nonShoesList)
 # nonShoesLabelArray = np.array(nonShoesLabelList)
 
-# # Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes
+######################################################## Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes #######################################################
 # shoesNonShoesLabelList = []
 # for i in range(len(train_images)):
 #   # Shoes
@@ -118,7 +118,7 @@ shoesLabelArray = np.array(shoesLabelList)
 # # print(len(shoesNonShoesLabelList))
 # shoesNonShoesLabelArray = np.array(shoesNonShoesLabelList)
 
-# Creating tops list
+######################################################## Creating tops list #######################################################
 topsList = []
 topsLabelList = []
 for i in range(len(train_images)):
@@ -130,7 +130,7 @@ for i in range(len(train_images)):
 topsArray = np.array(topsList)
 topsLabelArray = np.array(topsLabelList)
 
-# Creating others list
+######################################################## Creating others list #######################################################
 othersList = []
 othersLabelList = []
 for i in range(len(train_images)):
@@ -140,7 +140,7 @@ for i in range(len(train_images)):
 othersArray = np.array(othersList)
 othersLabelArray = np.array(othersLabelList)
 
-# Creating shoes, tops, and others list joined together
+######################################################## Creating shoes, tops, and others list joined together #######################################################
 shoesTopsOthersLabelList = []
 for i in range(len(train_images)):
   if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
@@ -151,19 +151,7 @@ for i in range(len(train_images)):
     shoesTopsOthersLabelList.append(2)
 shoesTopsOthersLabelArray = np.array(shoesTopsOthersLabelList)
 
-# print(shoesTopsOthersLabelList)
-# print(len(shoesTopsOthersLabelArray))
-
-# sys.exit()
-
-# Preprocessing
-# plt.figure()
-# plt.imshow(train_images[0])
-# plt.colorbar()
-# plt.grid(False)
-# plt.show()
-
-# Scaling the values to be between 0 and 1 instead of 0 to 255
+######################################################## Scaling the values to be between 0 and 1 instead of 0 to 255 #######################################################
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
@@ -180,7 +168,7 @@ test_images = test_images / 255.0
 #   plotNumber = plotNumber+1
 # plt.show()
 
-# # Index and category filter
+######################################################## Index and category filter #######################################################
 # print()
 # start = input("What index do you want to start from?: ") # Prompting user to insert start value
 # print()
@@ -197,34 +185,33 @@ test_images = test_images / 255.0
 # displayCertainCategories(category, start, train_images, train_labels)
 
 
-# Building layers
+######################################################## Building layers #######################################################
 model = tf.keras.Sequential([
     tf.keras.layers.Flatten(input_shape=(28, 28)), # Unstacking rows of pixels in image and lining them up
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dense(10)
 ])
 
-# Compiling the model
+######################################################## Compiling the model #######################################################
 model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
+####################################################### Desired index #######################################################
 # startIndex = input("Enter your start index: ")
 # endIndex = input("Enter your end index: ")
-
 # train_images_50k = train_images[int(startIndex):int(endIndex)]
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
-# sys.exit()
 
-# Training and feeding the model
+######################################################## Training and feeding the model #######################################################
 model.fit(train_images, shoesTopsOthersLabelArray, epochs=10)
 
-#Evaluating accuracy
+######################################################## Evaluating accuracy #######################################################
 print()
 test_loss, test_acc = model.evaluate(train_images, shoesTopsOthersLabelArray, verbose=2)
 print('Test accuracy:', test_acc)
 
-# # Making predictions
+######################################################## Making predictions #######################################################
 # probability_model = tf.keras.Sequential([model, 
 #                                          tf.keras.layers.Softmax()])
 # predictions = probability_model.predict(test_images)
@@ -234,11 +221,7 @@ print('Test accuracy:', test_acc)
 # print("Real: ")
 # print(test_labels[0])
 
-# Plot the first X test images, their predicted labels, and the true labels.
-# Color correct predictions in blue and incorrect predictions in red.
-
-# print(int(start))
-
+######################################################## Plot the first X test images, their predicted labels, and the true labels. #######################################################
 # num_rows = 5
 # num_cols = 5
 # num_images = num_rows*num_cols
