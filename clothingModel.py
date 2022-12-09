@@ -84,16 +84,22 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
   plt.show()
   plt.savefig('test.png')
 
-######################################################## Creating shoes list #######################################################
-shoesList = [] # This is a list
-shoesLabelList = []
+####################################################### Creating all list #######################################################
+allLabelList = []
 for i in range(len(train_images)):
-  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    shoesList.append(train_images[i])
-    shoesLabelList.append(1)
-# displayCertainCategories('all', 0, shoesList, shoesLabelList)
-shoesArray = np.array(shoesList)
-shoesLabelArray = np.array(shoesLabelList)
+  allLabelList.append(0)
+allLabelArray = np.array(allLabelList)
+
+######################################################## Creating shoes list #######################################################
+# shoesList = [] # This is a list
+# shoesLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+#     shoesList.append(train_images[i])
+#     shoesLabelList.append(1)
+# # displayCertainCategories('all', 0, shoesList, shoesLabelList)
+# shoesArray = np.array(shoesList)
+# shoesLabelArray = np.array(shoesLabelList)
 
 ######################################################## Creating non-shoes list #######################################################
 # nonShoesList = []
@@ -107,7 +113,7 @@ shoesLabelArray = np.array(shoesLabelList)
 # nonShoesArray = np.array(nonShoesList)
 # nonShoesLabelArray = np.array(nonShoesLabelList)
 
-######################################################## Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes #######################################################
+######################################################## Creating shoes and non shoes joined together. 0 = nonshoes, 1 = shoes #######################################
 # shoesNonShoesLabelList = []
 # for i in range(len(train_images)):
 #   # Shoes
@@ -119,37 +125,37 @@ shoesLabelArray = np.array(shoesLabelList)
 # shoesNonShoesLabelArray = np.array(shoesNonShoesLabelList)
 
 ######################################################## Creating tops list #######################################################
-topsList = []
-topsLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
-    topsList.append(train_images[i])
-    topsLabelList.append(2)
-# print(len(topsList))
-# displayCertainCategories('all', 0, topsList, topsLabelList)
-topsArray = np.array(topsList)
-topsLabelArray = np.array(topsLabelList)
+# topsList = []
+# topsLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+#     topsList.append(train_images[i])
+#     topsLabelList.append(2)
+# # print(len(topsList))
+# # displayCertainCategories('all', 0, topsList, topsLabelList)
+# topsArray = np.array(topsList)
+# topsLabelArray = np.array(topsLabelList)
 
 ######################################################## Creating others list #######################################################
-othersList = []
-othersLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
-    othersList.append(train_images[i])
-    othersLabelList.append(0)
-othersArray = np.array(othersList)
-othersLabelArray = np.array(othersLabelList)
+# othersList = []
+# othersLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+#     othersList.append(train_images[i])
+#     othersLabelList.append(0)
+# othersArray = np.array(othersList)
+# othersLabelArray = np.array(othersLabelList)
 
 ######################################################## Creating shoes, tops, and others list joined together #######################################################
-shoesTopsOthersLabelList = []
-for i in range(len(train_images)):
-  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
-    shoesTopsOthersLabelList.append(0)
-  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    shoesTopsOthersLabelList.append(1)
-  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
-    shoesTopsOthersLabelList.append(2)
-shoesTopsOthersLabelArray = np.array(shoesTopsOthersLabelList)
+# shoesTopsOthersLabelList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+#     shoesTopsOthersLabelList.append(0)
+#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+#     shoesTopsOthersLabelList.append(1)
+#   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+#     shoesTopsOthersLabelList.append(2)
+# shoesTopsOthersLabelArray = np.array(shoesTopsOthersLabelList)
 
 ######################################################## Scaling the values to be between 0 and 1 instead of 0 to 255 #######################################################
 train_images = train_images / 255.0
@@ -204,11 +210,16 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, shoesTopsOthersLabelArray, epochs=10)
+# model.fit(train_images, allLabelArray, epochs=10)
+# model.save('saved_model/oneCategoryModel')
+
+oneCategoryModel = tf.keras.models.load_model('saved_model/oneCategoryModel')
+test_loss, test_acc = oneCategoryModel.evaluate(test_images, allLabelArray, verbose=2)
+print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy #######################################################
 print()
-test_loss, test_acc = model.evaluate(train_images, shoesTopsOthersLabelArray, verbose=2)
+test_loss, test_acc = model.evaluate(train_images, allLabelArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Making predictions #######################################################
@@ -221,7 +232,7 @@ print('Test accuracy:', test_acc)
 # print("Real: ")
 # print(test_labels[0])
 
-######################################################## Plot the first X test images, their predicted labels, and the true labels. #######################################################
+######################################################## Plot the first X test images, their predicted labels, and the true labels. #####################################
 # num_rows = 5
 # num_cols = 5
 # num_images = num_rows*num_cols
