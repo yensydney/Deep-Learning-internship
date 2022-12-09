@@ -192,17 +192,25 @@ model.compile(optimizer='adam',
 # sys.exit()
 
 # Training and feeding the model
-desiredEpochs = input("How many epochs do you want?: ")
-# WITH CALLBACK
-model.fit(train_images, train_labels, epochs=int(desiredEpochs))
+# desiredEpochs = input("How many epochs do you want?: ")
+# model.fit(train_images, train_labels, epochs=int(desiredEpochs))
+# model.save('saved_model/my_model')
+
+originalSavedModel = tf.keras.models.load_model('saved_model/my_model')
+originalSavedModel.summary()
 
 #Evaluating accuracy
 print()
-test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+test_loss, test_acc = originalSavedModel.evaluate(test_images,  test_labels, verbose=2)
 print('Test accuracy:', test_acc)
+print('Restored model, accuracy: {:5.2f}%'.format(100 * test_acc))
+print(originalSavedModel.predict(test_images).shape)
+
+
+
 
 # # Making predictions
-# probability_model = tf.keras.Sequential([model, tf.keras.layers.Softmax()])
+# probability_model = tf.keras.Sequential([originalSavedModel, tf.keras.layers.Softmax()])
 # predictions = probability_model.predict(test_images)
 # print(predictions[0])
 # print("Prediction: ")
