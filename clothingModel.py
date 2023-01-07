@@ -84,7 +84,7 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
   plt.show()
   plt.savefig('test.png')
 
-####################################################### Creating all list #######################################################
+####################################################### Creating all list (1 category) #######################################################
 allLabelList = []
 for i in range(len(train_images)):
   allLabelList.append(0)
@@ -210,17 +210,17 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-# model.fit(train_images, allLabelArray, epochs=10)
-# model.save('saved_model/oneCategoryModel')
+model.fit(test_images, allLabelArray, epochs=10)
+model.save('saved_model/oneCategoryModel')
 
-oneCategoryModel = tf.keras.models.load_model('saved_model/oneCategoryModel')
-test_loss, test_acc = oneCategoryModel.evaluate(test_images, allLabelArray, verbose=2)
-print('Test accuracy:', test_acc)
+# oneCategoryModel = tf.keras.models.load_model('saved_model/oneCategoryModel')
+# test_loss, test_acc = oneCategoryModel.evaluate(test_images, allLabelArray, verbose=2)
+# print('Test accuracy:', test_acc)
 
-######################################################## Evaluating accuracy #######################################################
-print()
-test_loss, test_acc = model.evaluate(train_images, allLabelArray, verbose=2)
-print('Test accuracy:', test_acc)
+######################################################## Evaluating accuracy (old) #######################################################
+# print()
+# test_loss, test_acc = model.evaluate(train_images, allLabelArray, verbose=2)
+# print('Test accuracy:', test_acc)
 
 ######################################################## Making predictions #######################################################
 # probability_model = tf.keras.Sequential([model, 
