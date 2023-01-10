@@ -84,11 +84,18 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
   plt.show()
   plt.savefig('test.png')
 
-####################################################### Creating all list (1 category) #######################################################
-allLabelList = []
+####################################################### Creating 1 category array #######################################################
+# The training data
+oneCatTrainList = []
 for i in range(len(train_images)):
-  allLabelList.append(0)
-allLabelArray = np.array(allLabelList)
+  oneCatTrainList.append(0)
+oneCatTrainArray = np.array(oneCatTrainList)
+
+# The testing data
+oneCatTestList = []
+for i in range(len(test_images)):
+  oneCatTestList.append(0)
+oneCatTestArray = np.array(oneCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -210,12 +217,12 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(test_images, allLabelArray, epochs=10)
+model.fit(train_images, oneCatTrainArray, epochs=10)
 model.save('saved_model/oneCategoryModel')
 
 # oneCategoryModel = tf.keras.models.load_model('saved_model/oneCategoryModel')
-# test_loss, test_acc = oneCategoryModel.evaluate(test_images, allLabelArray, verbose=2)
-# print('Test accuracy:', test_acc)
+test_loss, test_acc = model.evaluate(test_images, oneCatTestArray, verbose=2)
+print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
 # print()
