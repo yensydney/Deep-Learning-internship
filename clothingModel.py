@@ -85,17 +85,42 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
   plt.savefig('test.png')
 
 ####################################################### Creating 1 category array #######################################################
+# # The training data
+# oneCatTrainList = []
+# for i in range(len(train_images)):
+#   oneCatTrainList.append(0)
+# oneCatTrainArray = np.array(oneCatTrainList)
+
+# # The testing data
+# oneCatTestList = []
+# for i in range(len(test_images)):
+#   oneCatTestList.append(0)
+# oneCatTestArray = np.array(oneCatTestList)
+
+####################################################### Creating 2 category array (0 tops, 1 nontops) #######################################################
 # The training data
-oneCatTrainList = []
+twoCatTrainList = []
+numberOfTops = 0
+numberOfNonTops = 0
 for i in range(len(train_images)):
-  oneCatTrainList.append(0)
-oneCatTrainArray = np.array(oneCatTrainList)
+  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6):
+    twoCatTrainList.append(0)
+    # numberOfTops = numberOfTops + 1
+  else:
+    twoCatTrainList.append(1)
+    # numberOfNonTops = numberOfNonTops + 1
+twoCatTrainArray = np.array(twoCatTrainList)
 
 # The testing data
-oneCatTestList = []
+twoCatTestList = []
 for i in range(len(test_images)):
-  oneCatTestList.append(0)
-oneCatTestArray = np.array(oneCatTestList)
+  if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 6):
+    twoCatTestList.append(0)
+    # numberOfTops = numberOfTops + 1
+  else:
+    twoCatTestList.append(1)
+    # numberOfNonTops = numberOfNonTops + 1
+twoCatTestArray = np.array(twoCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -217,11 +242,9 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, oneCatTrainArray, epochs=10)
-model.save('saved_model/oneCategoryModel')
+model.fit(train_images, twoCatTrainArray, epochs=10)
 
-# oneCategoryModel = tf.keras.models.load_model('saved_model/oneCategoryModel')
-test_loss, test_acc = model.evaluate(test_images, oneCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, twoCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
