@@ -266,6 +266,7 @@ model.compile(optimizer='adam',
 
 ######################################################## Training and feeding the model #######################################################
 model.fit(train_images, threeCatTrainArray, epochs=10)
+# model.save('saved_model/threeCategoryModel')
 
 test_loss, test_acc = model.evaluate(test_images, threeCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
