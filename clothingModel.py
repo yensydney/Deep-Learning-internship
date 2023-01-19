@@ -98,29 +98,52 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # oneCatTestArray = np.array(oneCatTestList)
 
 ####################################################### Creating 2 category array (0 tops, 1 nontops) #######################################################
+# # The training data
+# twoCatTrainList = []
+# numberOfTops = 0
+# numberOfNonTops = 0
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6):
+#     twoCatTrainList.append(0)
+#     # numberOfTops = numberOfTops + 1
+#   else:
+#     twoCatTrainList.append(1)
+#     # numberOfNonTops = numberOfNonTops + 1
+# twoCatTrainArray = np.array(twoCatTrainList)
+
+# # The testing data
+# twoCatTestList = []
+# for i in range(len(test_images)):
+#   if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 6):
+#     twoCatTestList.append(0)
+#     # numberOfTops = numberOfTops + 1
+#   else:
+#     twoCatTestList.append(1)
+#     # numberOfNonTops = numberOfNonTops + 1
+# twoCatTestArray = np.array(twoCatTestList)
+
+####################################################### Creating 3 category array (0 tops, 1 other, 2 shoes) #######################################################
 # The training data
-twoCatTrainList = []
-numberOfTops = 0
-numberOfNonTops = 0
+threeCatTrainList = []
 for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6):
-    twoCatTrainList.append(0)
-    # numberOfTops = numberOfTops + 1
-  else:
-    twoCatTrainList.append(1)
-    # numberOfNonTops = numberOfNonTops + 1
-twoCatTrainArray = np.array(twoCatTrainList)
+  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+    threeCatTrainList.append(0)
+  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+    threeCatTrainList.append(1)
+  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+    threeCatTrainList.append(2)
+threeCatTrainArray = np.array(threeCatTrainList)
 
 # The testing data
-twoCatTestList = []
+threeCatTestList = []
 for i in range(len(test_images)):
-  if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 6):
-    twoCatTestList.append(0)
-    # numberOfTops = numberOfTops + 1
-  else:
-    twoCatTestList.append(1)
-    # numberOfNonTops = numberOfNonTops + 1
-twoCatTestArray = np.array(twoCatTestList)
+  if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 6):
+    threeCatTestList.append(0)
+  if (test_labels[i] == 1 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 8):
+    threeCatTestList.append(1)
+  if (test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
+    threeCatTestList.append(2)
+threeCatTestArray = np.array(threeCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -242,9 +265,9 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, twoCatTrainArray, epochs=10)
+model.fit(train_images, threeCatTrainArray, epochs=10)
 
-test_loss, test_acc = model.evaluate(test_images, twoCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, threeCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
