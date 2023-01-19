@@ -146,31 +146,50 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # threeCatTestArray = np.array(threeCatTestList)
 
 ####################################################### Creating 4 category array #######################################################
+# # The training data
+# fourCatTrainList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+#     fourCatTrainList.append(0)
+#   if (train_labels[i] == 3 or train_labels[i] == 4):
+#     fourCatTrainList.append(1)
+#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+#     fourCatTrainList.append(2)
+#   if (train_labels[i] == 1 or train_labels[i] == 8):
+#     fourCatTrainList.append(3)
+# fourCatTrainArray = np.array(fourCatTrainList)
+
+# # The testing data
+# fourCatTestList = []
+# for i in range(len(test_images)):
+#   if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 6):
+#     fourCatTestList.append(0)
+#   if (test_labels[i] == 3 or test_labels[i] == 4):
+#     fourCatTestList.append(1)
+#   if (test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
+#     fourCatTestList.append(2)
+#   if (test_labels[i] == 1 or test_labels[i] == 8):
+#     fourCatTestList.append(3)
+# fourCatTestArray = np.array(fourCatTestList)
+
+####################################################### Creating 5 category array #######################################################
 # The training data
-fourCatTrainList = []
+fiveCatTrainList = []
 for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
-    fourCatTrainList.append(0)
+  if (train_labels[i] == 0 or train_labels[i] == 6):
+    fiveCatTrainList.append(0)
+  if (train_labels[i] == 1 or train_labels[i] == 2):
+    fiveCatTrainList.append(1)
   if (train_labels[i] == 3 or train_labels[i] == 4):
-    fourCatTrainList.append(1)
-  if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    fourCatTrainList.append(2)
-  if (train_labels[i] == 1 or train_labels[i] == 8):
-    fourCatTrainList.append(3)
-fourCatTrainArray = np.array(fourCatTrainList)
+    fiveCatTrainList.append(2)
+  if (train_labels[i] == 5 or train_labels[i] == 7):
+    fiveCatTrainList.append(3)
+  if (train_labels[i] == 8 or train_labels[i] == 9):
+    fiveCatTrainList.append(4)
+fiveCatTrainArray = np.array(fiveCatTrainList)
 
 # The testing data
-fourCatTestList = []
-for i in range(len(test_images)):
-  if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 6):
-    fourCatTestList.append(0)
-  if (test_labels[i] == 3 or test_labels[i] == 4):
-    fourCatTestList.append(1)
-  if (test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
-    fourCatTestList.append(2)
-  if (test_labels[i] == 1 or test_labels[i] == 8):
-    fourCatTestList.append(3)
-fourCatTestArray = np.array(fourCatTestList)
+fiveCatTestList = []
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
