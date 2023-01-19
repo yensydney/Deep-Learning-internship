@@ -124,26 +124,53 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 
 ####################################################### Creating 3 category array (0 tops, 1 other, 2 shoes) #######################################################
 # The training data
-threeCatTrainList = []
+# threeCatTrainList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
+#     threeCatTrainList.append(0)
+#   if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
+#     threeCatTrainList.append(1)
+#   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+#     threeCatTrainList.append(2)
+# threeCatTrainArray = np.array(threeCatTrainList)
+
+# # The testing data
+# threeCatTestList = []
+# for i in range(len(test_images)):
+#   if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 6):
+#     threeCatTestList.append(0)
+#   if (test_labels[i] == 1 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 8):
+#     threeCatTestList.append(1)
+#   if (test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
+#     threeCatTestList.append(2)
+# threeCatTestArray = np.array(threeCatTestList)
+
+####################################################### Creating 4 category array #######################################################
+# The training data
+fourCatTrainList = []
 for i in range(len(train_images)):
   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 6):
-    threeCatTrainList.append(0)
-  if (train_labels[i] == 1 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 8):
-    threeCatTrainList.append(1)
+    fourCatTrainList.append(0)
+  if (train_labels[i] == 3 or train_labels[i] == 4):
+    fourCatTrainList.append(1)
   if (train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
-    threeCatTrainList.append(2)
-threeCatTrainArray = np.array(threeCatTrainList)
+    fourCatTrainList.append(2)
+  if (train_labels[i] == 1 or train_labels[i] == 8):
+    fourCatTrainList.append(3)
+fourCatTrainArray = np.array(fourCatTrainList)
 
 # The testing data
-threeCatTestList = []
+fourCatTestList = []
 for i in range(len(test_images)):
   if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 6):
-    threeCatTestList.append(0)
-  if (test_labels[i] == 1 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 8):
-    threeCatTestList.append(1)
+    fourCatTestList.append(0)
+  if (test_labels[i] == 3 or test_labels[i] == 4):
+    fourCatTestList.append(1)
   if (test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
-    threeCatTestList.append(2)
-threeCatTestArray = np.array(threeCatTestList)
+    fourCatTestList.append(2)
+  if (test_labels[i] == 1 or test_labels[i] == 8):
+    fourCatTestList.append(3)
+fourCatTestArray = np.array(fourCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -265,10 +292,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, threeCatTrainArray, epochs=10)
-# model.save('saved_model/threeCategoryModel')
+model.fit(train_images, fourCatTrainArray, epochs=10)
+# model.save('saved_model/fourCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, threeCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, fourCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
