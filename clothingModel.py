@@ -190,6 +190,18 @@ fiveCatTrainArray = np.array(fiveCatTrainList)
 
 # The testing data
 fiveCatTestList = []
+for i in range(len(test_images)):
+  if (test_labels[i] == 0 or test_labels[i] == 6):
+    fiveCatTestList.append(0)
+  if (test_labels[i] == 1 or test_labels[i] == 2):
+    fiveCatTestList.append(1)
+  if (test_labels[i] == 3 or test_labels[i] == 4):
+    fiveCatTestList.append(2)
+  if (test_labels[i] == 5 or test_labels[i] == 7):
+    fiveCatTestList.append(3)
+  if (test_labels[i] == 8 or test_labels[i] == 9):
+    fiveCatTestList.append(4)
+fiveCatTestArray = np.array(fiveCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -311,10 +323,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, fourCatTrainArray, epochs=10)
-# model.save('saved_model/fourCategoryModel')
+model.fit(train_images, fiveCatTrainArray, epochs=10)
+# model.save('saved_model/fiveCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, fourCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, fiveCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
