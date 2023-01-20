@@ -173,35 +173,70 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # fourCatTestArray = np.array(fourCatTestList)
 
 ####################################################### Creating 5 category array #######################################################
+# # The training data
+# fiveCatTrainList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 6):
+#     fiveCatTrainList.append(0)
+#   if (train_labels[i] == 1 or train_labels[i] == 2):
+#     fiveCatTrainList.append(1)
+#   if (train_labels[i] == 3 or train_labels[i] == 4):
+#     fiveCatTrainList.append(2)
+#   if (train_labels[i] == 5 or train_labels[i] == 7):
+#     fiveCatTrainList.append(3)
+#   if (train_labels[i] == 8 or train_labels[i] == 9):
+#     fiveCatTrainList.append(4)
+# fiveCatTrainArray = np.array(fiveCatTrainList)
+
+# # The testing data
+# fiveCatTestList = []
+# for i in range(len(test_images)):
+#   if (test_labels[i] == 0 or test_labels[i] == 6):
+#     fiveCatTestList.append(0)
+#   if (test_labels[i] == 1 or test_labels[i] == 2):
+#     fiveCatTestList.append(1)
+#   if (test_labels[i] == 3 or test_labels[i] == 4):
+#     fiveCatTestList.append(2)
+#   if (test_labels[i] == 5 or test_labels[i] == 7):
+#     fiveCatTestList.append(3)
+#   if (test_labels[i] == 8 or test_labels[i] == 9):
+#     fiveCatTestList.append(4)
+# fiveCatTestArray = np.array(fiveCatTestList)
+
+####################################################### Creating 6 category array #######################################################
 # The training data
-fiveCatTrainList = []
+sixCatTrainList = []
 for i in range(len(train_images)):
   if (train_labels[i] == 0 or train_labels[i] == 6):
-    fiveCatTrainList.append(0)
+    sixCatTrainList.append(0)
   if (train_labels[i] == 1 or train_labels[i] == 2):
-    fiveCatTrainList.append(1)
+    sixCatTrainList.append(1)
   if (train_labels[i] == 3 or train_labels[i] == 4):
-    fiveCatTrainList.append(2)
+    sixCatTrainList.append(2)
   if (train_labels[i] == 5 or train_labels[i] == 7):
-    fiveCatTrainList.append(3)
-  if (train_labels[i] == 8 or train_labels[i] == 9):
-    fiveCatTrainList.append(4)
-fiveCatTrainArray = np.array(fiveCatTrainList)
+    sixCatTrainList.append(3)
+  if (train_labels[i] == 8):
+    sixCatTrainList.append(4)
+  if (train_labels[i] == 9):
+    sixCatTrainList.append(5)
+sixCatTrainArray = np.array(sixCatTrainList)
 
 # The testing data
-fiveCatTestList = []
-for i in range(len(test_images)):
+sixCatTestList = []
+for i in range (len(test_images)):
   if (test_labels[i] == 0 or test_labels[i] == 6):
-    fiveCatTestList.append(0)
+    sixCatTestList.append(0)
   if (test_labels[i] == 1 or test_labels[i] == 2):
-    fiveCatTestList.append(1)
+    sixCatTestList.append(1)
   if (test_labels[i] == 3 or test_labels[i] == 4):
-    fiveCatTestList.append(2)
+    sixCatTestList.append(2)
   if (test_labels[i] == 5 or test_labels[i] == 7):
-    fiveCatTestList.append(3)
-  if (test_labels[i] == 8 or test_labels[i] == 9):
-    fiveCatTestList.append(4)
-fiveCatTestArray = np.array(fiveCatTestList)
+    sixCatTestList.append(3)
+  if (test_labels[i] == 8):
+    sixCatTestList.append(4)
+  if (test_labels[i] == 9):
+    sixCatTestList.append(5)
+sixCatTestArray = np.array(sixCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -323,10 +358,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, fiveCatTrainArray, epochs=10)
-# model.save('saved_model/fiveCategoryModel')
+model.fit(train_images, sixCatTrainArray, epochs=10)
+# model.save('saved_model/sixCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, fiveCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, sixCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
