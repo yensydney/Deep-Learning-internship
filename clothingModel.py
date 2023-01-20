@@ -240,44 +240,89 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 
 ####################################################### Creating 7 category array #######################################################
 # The training data
-sevenCatTrainList = []
+# sevenCatTrainList = []
+# for i in range(len(train_images)):
+#   current = train_labels[i]
+#   if (current == 0 or current == 6):
+#     sevenCatTrainList.append(0)
+#   if (current == 1 or current == 2):
+#     sevenCatTrainList.append(1)
+#   if (current == 3 or current == 4):
+#     sevenCatTrainList.append(2)
+#   if (current == 5):
+#     sevenCatTrainList.append(3)
+#   if (current == 7):
+#     sevenCatTrainList.append(4)
+#   if (current == 8):
+#     sevenCatTrainList.append(5)
+#   if (current == 9):
+#     sevenCatTrainList.append(6)
+# sevenCatTrainArray = np.array(sevenCatTrainList)
+
+# # The testing data
+# sevenCatTestList = []
+# for i in range(len(test_images)):
+#   current = test_labels[i]
+#   if (current == 0 or current == 6):
+#     sevenCatTestList.append(0)
+#   if (current == 1 or current == 2):
+#     sevenCatTestList.append(1)
+#   if (current == 3 or current == 4):
+#     sevenCatTestList.append(2)
+#   if (current == 5):
+#     sevenCatTestList.append(3)
+#   if (current == 7):
+#     sevenCatTestList.append(4)
+#   if (current == 8):
+#     sevenCatTestList.append(5)
+#   if (current == 9):
+#     sevenCatTestList.append(6)
+# sevenCatTestArray = np.array(sevenCatTestList)
+
+####################################################### Creating 8 category array #######################################################
+# The training data
+eightCatTrainList = []
 for i in range(len(train_images)):
-  current = train_labels[i]
-  if (current == 0 or current == 6):
-    sevenCatTrainList.append(0)
-  if (current == 1 or current == 2):
-    sevenCatTrainList.append(1)
-  if (current == 3 or current == 4):
-    sevenCatTrainList.append(2)
-  if (current == 5):
-    sevenCatTrainList.append(3)
-  if (current == 7):
-    sevenCatTrainList.append(4)
-  if (current == 8):
-    sevenCatTrainList.append(5)
-  if (current == 9):
-    sevenCatTrainList.append(6)
-sevenCatTrainArray = np.array(sevenCatTrainList)
+  cur = train_labels[i]
+  if (cur == 0 or cur == 6):
+    eightCatTrainList.append(0)
+  if (cur == 1 or cur == 2):
+    eightCatTrainList.append(1)
+  if (cur == 3):
+    eightCatTrainList.append(2)
+  if (cur == 4):
+    eightCatTrainList.append(3)
+  if (cur == 5):
+    eightCatTrainList.append(4)
+  if (cur == 7):
+    eightCatTrainList.append(5)
+  if (cur == 8):
+    eightCatTrainList.append(6)
+  if (cur == 9):
+    eightCatTrainList.append(7)
+eightCatTrainArray = np.array(eightCatTrainList)
 
 # The testing data
-sevenCatTestList = []
+eightCatTestList = []
 for i in range(len(test_images)):
-  current = test_labels[i]
-  if (current == 0 or current == 6):
-    sevenCatTestList.append(0)
-  if (current == 1 or current == 2):
-    sevenCatTestList.append(1)
-  if (current == 3 or current == 4):
-    sevenCatTestList.append(2)
-  if (current == 5):
-    sevenCatTestList.append(3)
-  if (current == 7):
-    sevenCatTestList.append(4)
-  if (current == 8):
-    sevenCatTestList.append(5)
-  if (current == 9):
-    sevenCatTestList.append(6)
-sevenCatTestArray = np.array(sevenCatTestList)
+  cur = test_labels[i]
+  if (cur == 0 or cur == 6):
+    eightCatTestList.append(0)
+  if (cur == 1 or cur == 2):
+    eightCatTestList.append(1)
+  if (cur == 3):
+    eightCatTestList.append(2)
+  if (cur == 4):
+    eightCatTestList.append(3)
+  if (cur == 5):
+    eightCatTestList.append(4)
+  if (cur == 7):
+    eightCatTestList.append(5)
+  if (cur == 8):
+    eightCatTestList.append(6)
+  if (cur == 9):
+    eightCatTestList.append(7)
+eightCatTestArray = np.array(eightCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
