@@ -204,39 +204,80 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # fiveCatTestArray = np.array(fiveCatTestList)
 
 ####################################################### Creating 6 category array #######################################################
+# # The training data
+# sixCatTrainList = []
+# for i in range(len(train_images)):
+#   if (train_labels[i] == 0 or train_labels[i] == 6):
+#     sixCatTrainList.append(0)
+#   if (train_labels[i] == 1 or train_labels[i] == 2):
+#     sixCatTrainList.append(1)
+#   if (train_labels[i] == 3 or train_labels[i] == 4):
+#     sixCatTrainList.append(2)
+#   if (train_labels[i] == 5 or train_labels[i] == 7):
+#     sixCatTrainList.append(3)
+#   if (train_labels[i] == 8):
+#     sixCatTrainList.append(4)
+#   if (train_labels[i] == 9):
+#     sixCatTrainList.append(5)
+# sixCatTrainArray = np.array(sixCatTrainList)
+
+# # The testing data
+# sixCatTestList = []
+# for i in range (len(test_images)):
+#   if (test_labels[i] == 0 or test_labels[i] == 6):
+#     sixCatTestList.append(0)
+#   if (test_labels[i] == 1 or test_labels[i] == 2):
+#     sixCatTestList.append(1)
+#   if (test_labels[i] == 3 or test_labels[i] == 4):
+#     sixCatTestList.append(2)
+#   if (test_labels[i] == 5 or test_labels[i] == 7):
+#     sixCatTestList.append(3)
+#   if (test_labels[i] == 8):
+#     sixCatTestList.append(4)
+#   if (test_labels[i] == 9):
+#     sixCatTestList.append(5)
+# sixCatTestArray = np.array(sixCatTestList)
+
+####################################################### Creating 7 category array #######################################################
 # The training data
-sixCatTrainList = []
+sevenCatTrainList = []
 for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 6):
-    sixCatTrainList.append(0)
-  if (train_labels[i] == 1 or train_labels[i] == 2):
-    sixCatTrainList.append(1)
-  if (train_labels[i] == 3 or train_labels[i] == 4):
-    sixCatTrainList.append(2)
-  if (train_labels[i] == 5 or train_labels[i] == 7):
-    sixCatTrainList.append(3)
-  if (train_labels[i] == 8):
-    sixCatTrainList.append(4)
-  if (train_labels[i] == 9):
-    sixCatTrainList.append(5)
-sixCatTrainArray = np.array(sixCatTrainList)
+  current = train_labels[i]
+  if (current == 0 or current == 6):
+    sevenCatTrainList.append(0)
+  if (current == 1 or current == 2):
+    sevenCatTrainList.append(1)
+  if (current == 3 or current == 4):
+    sevenCatTrainList.append(2)
+  if (current == 5):
+    sevenCatTrainList.append(3)
+  if (current == 7):
+    sevenCatTrainList.append(4)
+  if (current == 8):
+    sevenCatTrainList.append(5)
+  if (current == 9):
+    sevenCatTrainList.append(6)
+sevenCatTrainArray = np.array(sevenCatTrainList)
 
 # The testing data
-sixCatTestList = []
-for i in range (len(test_images)):
-  if (test_labels[i] == 0 or test_labels[i] == 6):
-    sixCatTestList.append(0)
-  if (test_labels[i] == 1 or test_labels[i] == 2):
-    sixCatTestList.append(1)
-  if (test_labels[i] == 3 or test_labels[i] == 4):
-    sixCatTestList.append(2)
-  if (test_labels[i] == 5 or test_labels[i] == 7):
-    sixCatTestList.append(3)
-  if (test_labels[i] == 8):
-    sixCatTestList.append(4)
-  if (test_labels[i] == 9):
-    sixCatTestList.append(5)
-sixCatTestArray = np.array(sixCatTestList)
+sevenCatTestList = []
+for i in range(len(test_images)):
+  current = test_labels[i]
+  if (current == 0 or current == 6):
+    sevenCatTestList.append(0)
+  if (current == 1 or current == 2):
+    sevenCatTestList.append(1)
+  if (current == 3 or current == 4):
+    sevenCatTestList.append(2)
+  if (current == 5):
+    sevenCatTestList.append(3)
+  if (current == 7):
+    sevenCatTestList.append(4)
+  if (current == 8):
+    sevenCatTestList.append(5)
+  if (current == 9):
+    sevenCatTestList.append(6)
+sevenCatTestArray = np.array(sevenCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -358,10 +399,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, sixCatTrainArray, epochs=10)
-# model.save('saved_model/sixCategoryModel')
+model.fit(train_images, sevenCatTrainArray, epochs=10)
+# model.save('saved_model/sevenCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, sixCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, sevenCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
