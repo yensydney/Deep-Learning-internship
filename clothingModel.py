@@ -444,10 +444,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, sevenCatTrainArray, epochs=10)
-# model.save('saved_model/sevenCategoryModel')
+model.fit(train_images, eightCatTrainArray, epochs=10)
+# model.save('saved_model/eightCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, sevenCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, eightCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
