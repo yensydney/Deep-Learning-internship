@@ -280,49 +280,98 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # sevenCatTestArray = np.array(sevenCatTestList)
 
 ####################################################### Creating 8 category array #######################################################
+# # The training data
+# eightCatTrainList = []
+# for i in range(len(train_images)):
+#   cur = train_labels[i]
+#   if (cur == 0 or cur == 6):
+#     eightCatTrainList.append(0)
+#   if (cur == 1 or cur == 2):
+#     eightCatTrainList.append(1)
+#   if (cur == 3):
+#     eightCatTrainList.append(2)
+#   if (cur == 4):
+#     eightCatTrainList.append(3)
+#   if (cur == 5):
+#     eightCatTrainList.append(4)
+#   if (cur == 7):
+#     eightCatTrainList.append(5)
+#   if (cur == 8):
+#     eightCatTrainList.append(6)
+#   if (cur == 9):
+#     eightCatTrainList.append(7)
+# eightCatTrainArray = np.array(eightCatTrainList)
+
+# # The testing data
+# eightCatTestList = []
+# for i in range(len(test_images)):
+#   cur = test_labels[i]
+#   if (cur == 0 or cur == 6):
+#     eightCatTestList.append(0)
+#   if (cur == 1 or cur == 2):
+#     eightCatTestList.append(1)
+#   if (cur == 3):
+#     eightCatTestList.append(2)
+#   if (cur == 4):
+#     eightCatTestList.append(3)
+#   if (cur == 5):
+#     eightCatTestList.append(4)
+#   if (cur == 7):
+#     eightCatTestList.append(5)
+#   if (cur == 8):
+#     eightCatTestList.append(6)
+#   if (cur == 9):
+#     eightCatTestList.append(7)
+# eightCatTestArray = np.array(eightCatTestList)
+
+####################################################### Creating 9 category array #######################################################
 # The training data
-eightCatTrainList = []
-for i in range(len(train_images)):
+nineCatTrainList = []
+for i in range (len(train_images)):
   cur = train_labels[i]
   if (cur == 0 or cur == 6):
-    eightCatTrainList.append(0)
-  if (cur == 1 or cur == 2):
-    eightCatTrainList.append(1)
+    nineCatTrainList.append(0)
+  if (cur == 1):
+    nineCatTrainList.append(1)
+  if (cur == 2):
+    nineCatTrainList.append(2)
   if (cur == 3):
-    eightCatTrainList.append(2)
+    nineCatTrainList.append(3)
   if (cur == 4):
-    eightCatTrainList.append(3)
+    nineCatTrainList.append(4)
   if (cur == 5):
-    eightCatTrainList.append(4)
+    nineCatTrainList.append(5)
   if (cur == 7):
-    eightCatTrainList.append(5)
+    nineCatTrainList.append(6)
   if (cur == 8):
-    eightCatTrainList.append(6)
+    nineCatTrainList.append(7)
   if (cur == 9):
-    eightCatTrainList.append(7)
-eightCatTrainArray = np.array(eightCatTrainList)
+    nineCatTrainList.append(8)
+nineCatTrainArray = np.array(nineCatTrainList)
 
 # The testing data
-eightCatTestList = []
-for i in range(len(test_images)):
+nineCatTestList = []
+for i in range (len(test_images)):
   cur = test_labels[i]
   if (cur == 0 or cur == 6):
-    eightCatTestList.append(0)
-  if (cur == 1 or cur == 2):
-    eightCatTestList.append(1)
+    nineCatTestList.append(0)
+  if (cur == 1):
+    nineCatTestList.append(1)
+  if (cur == 2):
+    nineCatTestList.append(2)
   if (cur == 3):
-    eightCatTestList.append(2)
+    nineCatTestList.append(3)
   if (cur == 4):
-    eightCatTestList.append(3)
+    nineCatTestList.append(4)
   if (cur == 5):
-    eightCatTestList.append(4)
+    nineCatTestList.append(5)
   if (cur == 7):
-    eightCatTestList.append(5)
+    nineCatTestList.append(6)
   if (cur == 8):
-    eightCatTestList.append(6)
+    nineCatTestList.append(7)
   if (cur == 9):
-    eightCatTestList.append(7)
-eightCatTestArray = np.array(eightCatTestList)
+    nineCatTestList.append(8)
+nineCatTestArray = np.array(nineCatTestList)
 
 ######################################################## Creating shoes list #######################################################
 # shoesList = [] # This is a list
@@ -444,10 +493,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, eightCatTrainArray, epochs=10)
-# model.save('saved_model/eightCategoryModel')
+model.fit(train_images, nineCatTrainArray, epochs=10)
+# model.save('saved_model/nineCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, eightCatTestArray, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, nineCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
