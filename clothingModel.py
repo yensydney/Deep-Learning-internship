@@ -88,17 +88,16 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 ####################################################### Creating random 2 category array (0 tops, 1 nontops) #######################################################
 # The training data
 randomCatTrainList = []
-for i in range(3):
-  for j in range(20000):
+for i in range(4):
+  for j in range(15000):
     randomCatTrainList.append(i)
 randomCatTrainArray = np.array(randomCatTrainList)
 
 # The testing data
 randomCatTestList = []
-for i in range(3):
-  for j in range(3333):
+for i in range(4):
+  for j in range(2500):
     randomCatTestList.append(i)
-randomCatTestList.append(0)
 randomCatTestArray = np.array(randomCatTestList)
 
 ######################################################## Scaling the values to be between 0 and 1 instead of 0 to 255 #######################################################
@@ -155,7 +154,7 @@ model.compile(optimizer='adam',
 
 ######################################################## Training and feeding the model #######################################################
 model.fit(train_images, randomCatTrainArray, epochs=10)
-model.save('saved_model/randomThreeCategoryModel')
+# model.save('saved_model/randomFourCategoryModel')
 
 test_loss, test_acc = model.evaluate(test_images, randomCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
