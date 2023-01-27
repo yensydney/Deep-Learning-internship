@@ -101,7 +101,7 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # The training data
 twoCatTrainList = []
 for i in range(len(train_images)):
-  if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4):
+  if (train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
     twoCatTrainList.append(0)
   else:
     twoCatTrainList.append(1)
@@ -110,7 +110,7 @@ twoCatTrainArray = np.array(twoCatTrainList)
 # The testing data
 twoCatTestList = []
 for i in range(len(test_images)):
-  if (test_labels[i] == 0 or test_labels[i] == 1 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4):
+  if (test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
     twoCatTestList.append(0)
   else:
     twoCatTestList.append(1)
