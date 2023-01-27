@@ -98,29 +98,23 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # oneCatTestArray = np.array(oneCatTestList)
 
 ####################################################### Creating 2 category array (0 tops, 1 nontops) #######################################################
-# # The training data
-# twoCatTrainList = []
-# numberOfTops = 0
-# numberOfNonTops = 0
-# for i in range(len(train_images)):
-#   if (train_labels[i] == 0 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 6):
-#     twoCatTrainList.append(0)
-#     # numberOfTops = numberOfTops + 1
-#   else:
-#     twoCatTrainList.append(1)
-#     # numberOfNonTops = numberOfNonTops + 1
-# twoCatTrainArray = np.array(twoCatTrainList)
+# The training data
+twoCatTrainList = []
+for i in range(len(train_images)):
+  if (train_labels[i] == 0 or train_labels[i] == 1 or train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 4):
+    twoCatTrainList.append(0)
+  else:
+    twoCatTrainList.append(1)
+twoCatTrainArray = np.array(twoCatTrainList)
 
-# # The testing data
-# twoCatTestList = []
-# for i in range(len(test_images)):
-#   if (test_labels[i] == 0 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 6):
-#     twoCatTestList.append(0)
-#     # numberOfTops = numberOfTops + 1
-#   else:
-#     twoCatTestList.append(1)
-#     # numberOfNonTops = numberOfNonTops + 1
-# twoCatTestArray = np.array(twoCatTestList)
+# The testing data
+twoCatTestList = []
+for i in range(len(test_images)):
+  if (test_labels[i] == 0 or test_labels[i] == 1 or test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 4):
+    twoCatTestList.append(0)
+  else:
+    twoCatTestList.append(1)
+twoCatTestArray = np.array(twoCatTestList)
 
 ####################################################### Creating 3 category array (0 tops, 1 other, 2 shoes) #######################################################
 # The training data
@@ -493,10 +487,10 @@ model.compile(optimizer='adam',
 # train_labels_50k = train_labels[int(startIndex):int(endIndex)]
 
 ######################################################## Training and feeding the model #######################################################
-model.fit(train_images, train_labels, epochs=10)
-# model.save('saved_model/nineCategoryModel')
+model.fit(train_images, twoCatTrainArray, epochs=10)
+# model.save('saved_model/twoNonsimilarCategoryModel')
 
-test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
+test_loss, test_acc = model.evaluate(test_images, twoCatTestArray, verbose=2)
 print('Test accuracy:', test_acc)
 
 ######################################################## Evaluating accuracy (old) #######################################################
