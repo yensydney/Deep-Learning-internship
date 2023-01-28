@@ -56,7 +56,7 @@ def display(plotNumberArg, index, listDisplay, labelListDisplay):
   plt.xlabel(class_names[labelListDisplay[index]])
   plt.ylabel(index, labelpad = 0.5,loc = 'top', rotation = 'horizontal')
 
-def displayCertainCategories(desired_label, startValue, myList, labelList):
+def displayCertainCategories(desired_label, startValue, myList, labelList): # Remember to pass 'all' as a string
   # breakpoint()
   plotNumber = 1
   amount = 0
@@ -74,7 +74,7 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
   else:
     for i in range(int(startValue), len(labelList)): # Loop through whole array
       # print(train_labels[i])
-      if (labelList[i] == int(desired_label)): # Condition 
+      if (labelList[i] == desired_label): # Condition 
         # breakpoint()
         display(plotNumber, i, myList, labelList)
         plotNumber = plotNumber+1
@@ -83,6 +83,23 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
         break
   plt.show()
   plt.savefig('test.png')
+
+numberOfCat = int(input("How many categories?: "))
+numberInEachCat = int(6000/numberOfCat) # Good because rounds down
+myTrainImagesList = []
+myTrainLabelsList = []
+for i in range(len(train_images)):
+  if (train_labels[i] < numberOfCat):
+    myTrainImagesList.append(train_images[i])
+    myTrainLabelsList.append(train_labels[i])
+myTrainImagesArray = np.array(myTrainImagesList)
+myTrainLabelsArray = np.array(myTrainLabelsList)
+
+
+displayCertainCategories('all', 0, myTrainImagesArray, myTrainLabelsArray)
+
+sys.exit()
+
 
 ####################################################### Creating 1 category array #######################################################
 # # The training data
@@ -101,7 +118,7 @@ def displayCertainCategories(desired_label, startValue, myList, labelList):
 # The training data
 twoCatTrainList = []
 for i in range(len(train_images)):
-  if (train_labels[i] == 3 or train_labels[i] == 4 or train_labels[i] == 5 or train_labels[i] == 7 or train_labels[i] == 9):
+  if (train_labels[i] == 2 or train_labels[i] == 3 or train_labels[i] == 6 or train_labels[i] == 7 or train_labels[i] == 9):
     twoCatTrainList.append(0)
   else:
     twoCatTrainList.append(1)
@@ -110,7 +127,7 @@ twoCatTrainArray = np.array(twoCatTrainList)
 # The testing data
 twoCatTestList = []
 for i in range(len(test_images)):
-  if (test_labels[i] == 3 or test_labels[i] == 4 or test_labels[i] == 5 or test_labels[i] == 7 or test_labels[i] == 9):
+  if (test_labels[i] == 2 or test_labels[i] == 3 or test_labels[i] == 6 or test_labels[i] == 7 or test_labels[i] == 9):
     twoCatTestList.append(0)
   else:
     twoCatTestList.append(1)
